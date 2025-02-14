@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – Lab_3</title>
+<title>Lab 3 – Lab_3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,6 +101,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -123,11 +152,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -141,15 +170,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#describing-the-shape-of-data" id="toc-describing-the-shape-of-data" class="nav-link active" data-scroll-target="#describing-the-shape-of-data">Describing the Shape of Data</a></li>
+  <li><a href="#more-on-quarto-reporting" id="toc-more-on-quarto-reporting" class="nav-link" data-scroll-target="#more-on-quarto-reporting">More on Quarto Reporting</a></li>
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code">Inline code</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Lab 3</h1>
 </div>
 
 
@@ -166,15 +203,175 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>About this site</p>
+<p>This lab will go over a few more things you can do with Quarto documents, as well as reviewing material from Lab 2. You may find it helpful to have both this lab and Lab 2 open as references.</p>
+<p>To start, we will be using the following libraries, and the <code>iris</code> dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"iris"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s first see what variables we are working with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What type of variable is each of the variables in the dataset?</p>
+</div>
+</div>
+<section id="describing-the-shape-of-data" class="level2">
+<h2 class="anchored" data-anchor-id="describing-the-shape-of-data">Describing the Shape of Data</h2>
+<p>Remember that data can not only be visualized to be described (see Lab 2!), but we can also get some descriptive statistics about our data - mean, median, standard deviation, etc.</p>
+<p>As a reminder, here are some useful functions to find the mean, median, standard deviation, variance, interquartile range, minimum, and maximum:</p>
+<ul>
+<li>mean()</li>
+<li>median()</li>
+<li>sd()</li>
+<li>var()</li>
+<li>IQR()</li>
+<li>min()</li>
+<li>max()</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use an appropriate visualization to look at the relationship between sepal length and petal length.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using your visualization from Exercise 2, make each species a different color.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make a histogram of sepal width, and look at the distribution. Using what you know about which statistics are best to describe center and spread based on skewness (or lack thereof), calculate the appropriate statistics for the center and spread.</p>
+</div>
+</div>
+</section>
+<section id="more-on-quarto-reporting" class="level2">
+<h2 class="anchored" data-anchor-id="more-on-quarto-reporting">More on Quarto Reporting</h2>
+<p>In the text area of your Quarto reports (i.e.&nbsp;not in a code chunk) you can make use of <span class="math inline">\(\LaTeX\)</span> for symbols, math, citation, etc. I find it most useful for math and symbols - things that always took me time in a Word document! The $ symbol is used to set off inline math equations: <span class="math inline">\(\sqrt(x) = 4\)</span> is typed out as $\sqrt(x) = 4$ in the text area. You may notice another phrase: \sqrt(). This is more <span class="math inline">\(\LaTeX\)</span>, for math symbols. Here are some other useful ones:</p>
+<ul>
+<li>\frac{}{} (the numerator goes in the first set of brackets, and the denominator in the second)</li>
+<li>\^{x} This makes a superscript - <span class="math inline">\(x^{2}\)</span> is made like $x^{2}$</li>
+<li>\_{x} This is a subscript</li>
+<li>\alpha Makes the <span class="math inline">\(\alpha\)</span> symbol</li>
+<li>\sigma Makes the <span class="math inline">\(\sigma\)</span> symbol</li>
+<li>\bar Makes the bar over a letter: <span class="math inline">\(\bar a\)</span></li>
+</ul>
+<p>There will be a cheat-sheet up on Canvas for you to look at later if you’d like to see what else you can do.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Calculate the mean petal width by species. Report this out in the text area using a format of <span class="math inline">\(\bar x = 1234\)</span> (replace 1234 with the appropriate mean!)</p>
+</div>
+</div>
+<p>You may also notice different levels of headings in Quarto documents. The main heading is indicated with #, followed by a space, then the heading. There can only be one main heading per document. Then, sub-headings are indicated with ##. The pattern continues, adding an additional # each time you want to go down a heading.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Go back through your Lab document and make each exercise a sub-heading (e.g.&nbsp;the phrase “Exercise 1” should be a sub-heading).</p>
+</div>
+</div>
+</section>
+<section id="inline-code" class="level2">
+<h2 class="anchored" data-anchor-id="inline-code">Inline code</h2>
+<p>You are used to using code in code blocks - areas of your Quarto document set off by three back-ticks. However, you may want to use code in your text area, too. For example, in Exercise 5, you calculated the mean by species and then typed that out in your text area. If you were creating a report and wanted the mean to dynamically reflect your data, you’d want that to be calculated in your text, rather than having to go back and edit that number constantly!</p>
+<p>Inline code is set off by a single backtick (`) rather than three. It should also be simple code - do your filtering and calculations in a code chunk, and then call values in your code.</p>
+<p>As an example, we might assign the mean and sd of petal length to an object, then call that in our text.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: TRUE</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mean_petal <span class="ot">&lt;-</span> <span class="fu">mean</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sd_petal <span class="ot">&lt;-</span> <span class="fu">sd</span>(iris<span class="sc">$</span>Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We could then report it like this in our text area:</p>
+<p>The mean petal length is `{r} mean_petal` with a standard deviation of `{r} sd_petal`.</p>
+<p>This would be rendered as:</p>
+<p>The mean petal length is 3.758 with a standard deviation of 1.7652982.</p>
+<p>Another useful function we may want to use is <code>round()</code>, especially for that standard deviation! Let’s say we really only wanted both values reported to 2 decimal places. We’d use <code>round(value, # decimal places)</code> to accomplish this. In a code chunk, it might look like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(iris<span class="sc">$</span>Petal.Length), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And in an inline code portion, it might look like this:</p>
+<p>The mean petal length is `{r} round(mean_petal, 2)` with a standard deviation of `{r} round(sd_petal, 2)`.</p>
+<p>This would be rendered as:</p>
+<p>The mean petal length is 3.76 with a standard deviation of 1.77.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Calculate the median and interquartile range for petal width for each species. Report these values out by species in an inline code section. <strong>HINT</strong>: You will need to use a code chunk first to generate the values by species and assign to objects.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Calculate the mean and standard deviation for petal width for each species. Report these values out by species in an inline code chunk, rounding to 1 decimal place.</p>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -269,7 +466,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/lauralambert99\.github\.io\/251_Lab_3\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -21,17 +21,17 @@
     "text": "More on Quarto Reporting\nIn the text area of your Quarto reports (i.e. not in a code chunk) you can make use of \\(\\LaTeX\\) for symbols, math, citation, etc. I find it most useful for math and symbols - things that always took me time in a Word document! The $ symbol is used to set off inline math equations: \\(\\sqrt(x) = 4\\) is typed out as $\\sqrt(x) = 4$ in the text area. You may notice another phrase: \\sqrt(). This is more \\(\\LaTeX\\), for math symbols. Here are some other useful ones:\n\n\\frac{}{} (the numerator goes in the first set of brackets, and the denominator in the second)\n\\^{x} This makes a superscript - \\(x^{2}\\) is made like $x^{2}$\n\\_{x} This is a subscript\n\\alpha Makes the \\(\\alpha\\) symbol\n\\sigma Makes the \\(\\sigma\\) symbol\n\\bar Makes the bar over a letter: \\(\\bar a\\)\n\nThere will be a cheat-sheet up on Canvas for you to look at later if you’d like to see what else you can do.\n\n\n\n\n\n\nExercise 5\n\n\n\nCalculate the mean petal width by species. Report this out in the text area using a format of \\(\\bar x = 1234\\) (replace 1234 with the appropriate mean!)\n\n\nYou may also notice different levels of headings in Quarto documents. The main heading is indicated with #, followed by a space, then the heading. There can only be one main heading per document. Then, sub-headings are indicated with ##. The pattern continues, adding an additional # each time you want to go down a heading.\n\n\n\n\n\n\nExercise 6\n\n\n\nGo back through your Lab document and make each exercise a sub-heading (e.g. the phrase “Exercise 1” should be a sub-heading)."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
     "objectID": "index.html#inline-code",
     "href": "index.html#inline-code",
     "title": "Lab 3",
     "section": "Inline code",
     "text": "Inline code\nYou are used to using code in code blocks - areas of your Quarto document set off by three back-ticks. However, you may want to use code in your text area, too. For example, in Exercise 5, you calculated the mean by species and then typed that out in your text area. If you were creating a report and wanted the mean to dynamically reflect your data, you’d want that to be calculated in your text, rather than having to go back and edit that number constantly!\nInline code is set off by a single backtick (`) rather than three. It should also be simple code - do your filtering and calculations in a code chunk, and then call values in your code.\nAs an example, we might assign the mean and sd of petal length to an object, then call that in our text.\n\n#|echo: TRUE\nmean_petal &lt;- mean(iris$Petal.Length)\nsd_petal &lt;- sd(iris$Petal.Length)\n\nWe could then report it like this in our text area:\nThe mean petal length is `{r} mean_petal` with a standard deviation of `{r} sd_petal`.\nThis would be rendered as:\nThe mean petal length is 3.758 with a standard deviation of 1.7652982.\nAnother useful function we may want to use is round(), especially for that standard deviation! Let’s say we really only wanted both values reported to 2 decimal places. We’d use round(value, # decimal places) to accomplish this. In a code chunk, it might look like this:\n\nround(mean(iris$Petal.Length), 2)\n\nAnd in an inline code portion, it might look like this:\nThe mean petal length is `{r} round(mean_petal, 2)` with a standard deviation of `{r} round(sd_petal, 2)`.\nThis would be rendered as:\nThe mean petal length is 3.76 with a standard deviation of 1.77.\n\n\n\n\n\n\nExercise 7\n\n\n\nCalculate the median and interquartile range for petal width for each species. Report these values out by species in an inline code section. HINT: You will need to use a code chunk first to generate the values by species and assign to objects.\n\n\n\n\n\n\n\n\nExercise 8\n\n\n\nCalculate the mean and standard deviation for petal width for each species. Report these values out by species in an inline code chunk, rounding to 1 decimal place."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
   }
 ]
